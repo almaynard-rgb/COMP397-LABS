@@ -1,6 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+
+//***NOTE: ***
+
+
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
@@ -24,6 +29,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] LayerMask _groundMask;
     [SerializeField] bool _isGrounded;
+    [Header("Respawn Transform")]
+    [SerializeField] Transform _respawnPoint;
 
     void Awake()
     {
@@ -73,4 +80,16 @@ public class PlayerController : MonoBehaviour
     //{
     //    Debug.Log($"Move Performed {context.ReadValue<Vector2>().x}, {context.ReadValue<Vector2>().y}");
     //}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log($"Colliding with {other.tag}");
+        if (other.CompareTag("deathZone"))
+        {
+            _controller.enabled = false;
+            //sets respawn positon to the respawnPoint position.
+            transform.position = _respawnPoint.position;
+            _controller.enabled = true;
+        }
+    }
 }
