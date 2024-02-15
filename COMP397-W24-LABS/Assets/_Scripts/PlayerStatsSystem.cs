@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerStatsSystem : MonoBehaviour, IObserver
 {
@@ -40,12 +39,17 @@ public class PlayerStatsSystem : MonoBehaviour, IObserver
         if (_playerHealth <= 0)
         {
             Debug.Log($"Player notified that it died.");
-            SceneManager.LoadScene("GameOver");
+            SceneController.Instance.ChangeScene("GameOver");
         }
     }
 
     private void CalculateStamina()
     {
         Debug.Log("Stamina being calculated");
+    }
+
+    public void SaveGame()
+    {
+        SaveGameManager.Instance().SaveGame(_player.transform);
     }
 }
