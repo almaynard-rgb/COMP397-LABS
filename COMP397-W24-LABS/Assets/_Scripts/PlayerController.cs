@@ -20,6 +20,9 @@ public class PlayerController : Subject
 
     [SerializeField] float _speed;
 
+    [Header("Joystick")]
+    [SerializeField] Joystick _joystick;
+
     [Header("Character Controller")]
     [SerializeField] CharacterController _controller;
 
@@ -48,9 +51,12 @@ public class PlayerController : Subject
         _inputs.Player.Jump.performed += context => Jump();
     }
 
-    void OnEnable() => _inputs.Enable();
+    void OnEnable()
+    {
+        _inputs.Enable();
+    }
 
-    void OnDisable() => _inputs.Disable();
+        void OnDisable() => _inputs.Disable();
 
     void FixedUpdate()
     {
@@ -61,6 +67,7 @@ public class PlayerController : Subject
             _velocity.y = -2.0f;
         }
 
+        _move = _joystick.Direction;
         _camForward = _camera.transform.forward;
         _camRight = _camera.transform.right;
         _camForward.y = 0.0f;

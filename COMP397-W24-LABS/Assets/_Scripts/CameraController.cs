@@ -2,11 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using System;
 
 public class CameraController : MonoBehaviour
 {
     PlayerControl _inputs;
+    [SerializeField] private Button _turnCameraLeftBtn;
+    [SerializeField] private Button _turnCameraRightBtn;
 
 
     [SerializeField] private int _index = 0;
@@ -20,6 +23,8 @@ public class CameraController : MonoBehaviour
         InitCameraPriorities();
         _inputs = new PlayerControl();
         _inputs.Player.Camera.performed += context => MoveCamera(context.ReadValue<float>());
+        _turnCameraLeftBtn.onClick.AddListener(() => MoveCamera(-1));
+        _turnCameraRightBtn.onClick.AddListener(() => MoveCamera(1));
     }
 
     void InitCameraPriorities()
