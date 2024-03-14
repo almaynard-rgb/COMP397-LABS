@@ -108,11 +108,16 @@ public class PlayerController : Subject
     {
         if (other.CompareTag("deathZone"))
         {
-            _controller.enabled = false;
-            //sets respawn positon to the respawnPoint position.
-            transform.position = _respawnPoint.position;
-            _controller.enabled = true;
+            MovePlayerPosition(_respawnPoint.position);
             NotifyObservers(PlayerEnums.Died);
         }
+    }
+
+    public void MovePlayerPosition(Vector3 position)
+    {
+        _controller.enabled = false;
+        //sets respawn positon to the respawnPoint position.
+        transform.position = position;
+        _controller.enabled = true;
     }
 }
