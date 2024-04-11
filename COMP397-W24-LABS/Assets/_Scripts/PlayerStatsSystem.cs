@@ -18,7 +18,6 @@ public class PlayerStatsSystem : MonoBehaviour, IObserver
 
     void OnDisable() => _player.RemoveObserver(this);
 
-
     public void OnNotify(PlayerEnums playerEnums)
     {
         switch(playerEnums)
